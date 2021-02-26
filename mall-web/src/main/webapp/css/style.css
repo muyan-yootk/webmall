@@ -1,0 +1,13 @@
+.fixed {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    z-index: 9999;
+    background-color: white;
+    text-align: right;
+    color: black;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
