@@ -5,6 +5,8 @@ import com.yootk.common.mvc.annotation.Autowired;
 import com.yootk.common.mvc.annotation.Controller;
 import com.yootk.common.mvc.annotation.RequestMapping;
 import com.yootk.common.servlet.ModelAndView;
+import com.yootk.common.util.encrypt.EncryptUtil;
+import com.yootk.common.util.ftp.FTPUtil;
 import com.yootk.mall.service.front.IMemberServiceFront;
 import com.yootk.mall.vo.Member;
 
@@ -63,6 +65,25 @@ public class MemberActionFront extends AbstractAction {
     @RequestMapping("/member_login")
     public ModelAndView login(Member vo, String rememberme) throws Exception {
         return null;
+    }
+
+    @RequestMapping("/member_regist")
+    public ModelAndView regist(Member vo) throws Exception {
+        ModelAndView mav = new ModelAndView(super.getForwardPage()); // 最终跳转页
+        vo.setPassword(EncryptUtil.getMD5Encode(vo.getPassword())); // 对密码进行加密处理
+
+        try {
+            String msg = super.getMessge("vo.add.failure", "用户");
+            if (this.memberService.add(vo)) {
+                msg = super.getMessge("vo.add.success", "用户"); // 保存成功
+            }
+            String path = super.getIndexPage(); // 跳转到首页
+            mav.add(AbstractAction.PATH_ATTRIBUTE_NAME, path);
+            mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mav;
     }
 
     @Override

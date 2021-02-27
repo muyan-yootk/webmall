@@ -16,8 +16,13 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
 
 	@Override
 	public boolean doCreate(Member vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "INSERT INTO member(mid, name, password, level) VALUES (?, ?, ?, ?)";
+		super.pstmt = super.connection.prepareStatement(sql);
+		super.pstmt.setString(1, vo.getMid());
+		super.pstmt.setString(2, vo.getName());
+		super.pstmt.setString(3, vo.getPassword());
+		super.pstmt.setInt(4, vo.getLevel());
+		return super.pstmt.executeUpdate() > 0;
 	}
 
 	@Override

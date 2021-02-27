@@ -11,4 +11,5 @@ public interface IMemberServiceFront {
 	 */
 	public boolean login(Member vo) throws Exception ;
 	public Member get(String mid) throws Exception; // 根据ID查询一个用户的完整信息
+	public boolean add(Member vo) throws Exception; // 实现用户数据增加
 }

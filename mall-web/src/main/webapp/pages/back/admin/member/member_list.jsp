@@ -53,8 +53,6 @@
                     </tbody>
                 </table>
 
-                <div><button type="button" id="deleteBut" class="btn btn-lg btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>&nbsp;删除选中商品</button></div>
                 <div id="splitBarDiv" style="float:right">
                     <jsp:include page="/pages/plugins/split_page_bar_plugin.jsp"/>
                 </div>
