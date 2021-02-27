@@ -74,7 +74,7 @@ $(function(){
 			"code" : {
 				required : true ,
 				remote : {
-					url : "CheckRandomActionFront!check.action", // 后台处理程序
+					url : "check_code.action", // 后台处理程序
 					type : "post", // 数据发送方式
 					dataType : "html", // 接收数据格式
 					data : { // 要传递的数据
@@ -86,6 +86,9 @@ $(function(){
 						if (data.trim() == "true") {
 							return true;
 						} else {
+							if ($("#code").val().length == 4) {
+								$("#imageCode").attr("src","ImageCode?p="+Math.random()); // 更换验证码
+							}
 							return false;
 						}
 					}
