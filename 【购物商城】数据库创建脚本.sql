@@ -71,9 +71,9 @@ CREATE TABLE details (
 ) engine=innodb;
 
 -- 增加用户：admin/hello
-INSERT INTO member(mid,name,level,password) VALUES ('admin','管理员',1,'BF003EB4A1C8EA93799C912EA8978BB1') ;
+INSERT INTO member(mid,name,level,password) VALUES ('admin','管理员',1,'942AFC60271E48737EB1F32001667A2A') ;
 -- 增加用户：user/hello
-INSERT INTO member(mid,name,level,password) VALUES ('user','用户',0,'BF003EB4A1C8EA93799C912EA8978BB1') ;
+INSERT INTO member(mid,name,level,password) VALUES ('user','用户',0,'942AFC60271E48737EB1F32001667A2A') ;
 
 INSERT INTO province (title) VALUES 
  ('其他'), ('北京'), ('重庆'), ('福建'), ('甘肃'), ('广东'),

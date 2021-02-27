@@ -33,6 +33,8 @@
 			<li><a href="<%=shopcar_list_url%>">
 				<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;我的购物车</a></li>
 <%--		</c:if>--%>
+		<li><a href="https://www.yootk.com/resources">
+			<span class="glyphicon glyphicon-leaf"></span>&nbsp;直播课程回放</a></li>
 	</ul> 
 	<form class="navbar-form navbar-left" action="<%=goods_list_url%>" method="post">
 		<div class="form-group"> 
