@@ -35,7 +35,7 @@
 									<div class="col-md-5">
 										<!-- 定义表单输入组件 -->
 										<input type="text" id="mid" name="mid" class="form-control"
-											   placeholder="请输入用户名..." value="admin">
+											   placeholder="请输入用户名...">
 									</div>
 									<!-- 定义表单错误提示显示元素 -->
 									<div class="col-md-4" id="midMsg"></div>

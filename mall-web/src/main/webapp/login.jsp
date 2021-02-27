@@ -35,7 +35,7 @@
 									<div class="col-md-5">
 										<!-- 定义表单输入组件 -->
 										<input type="text" id="mid" name="mid" class="form-control"
-											placeholder="用户名 / 邮箱 / 手机" value="admin">
+											placeholder="用户名 / 邮箱 / 手机">
 									</div>
 									<!-- 定义表单错误提示显示元素 -->
 									<div class="col-md-4" id="midMsg"></div>

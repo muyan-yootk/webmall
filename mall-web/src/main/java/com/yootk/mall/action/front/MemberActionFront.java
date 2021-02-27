@@ -44,6 +44,14 @@ public class MemberActionFront extends AbstractAction {
     @RequestMapping("/code_check")
     public void check(String code) {
     }
+    @RequestMapping("/mid_check")
+    public void checkMid(String mid) {  // 检测传入的用户id是否存在
+        try {   // true表示可以使用、false表示不允许使用
+            super.print(this.memberService.get(mid) == null); // 当前的用户ID可以使用
+        } catch (Exception e) {
+            super.print(false); // 用户ID无法使用
+        }
+    }
 
     /**
      * 用户登录处理

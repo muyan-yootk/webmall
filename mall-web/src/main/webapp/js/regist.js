@@ -47,7 +47,7 @@ $(function(){
 			"mid" : {
 				required : true ,
 				remote : {
-					url : "MemberLoginActionFront!checkMid.action", // 后台处理程序
+					url : "mid_check.action", // 后台处理程序
 					type : "post", // 数据发送方式
 					dataType : "html", // 接收数据格式
 					data : { // 要传递的数据

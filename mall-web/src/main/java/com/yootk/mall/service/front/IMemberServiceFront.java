@@ -10,4 +10,5 @@ public interface IMemberServiceFront {
 	 * @throws Exception SQL
 	 */
 	public boolean login(Member vo) throws Exception ;
+	public Member get(String mid) throws Exception; // 根据ID查询一个用户的完整信息
 }
