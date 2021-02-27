@@ -10,6 +10,7 @@ import com.yootk.mall.vo.Goods;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 @Aspect
@@ -42,6 +43,14 @@ public class GoodsServiceBackImpl extends AbstractService implements IGoodsServi
     @Override
     public boolean edit(Goods vo) throws Exception {
         return this.goodsDAO.doEdit(vo);
+    }
+
+    @Override
+    public Map<String, Object> delete(Set<Long> gids) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("photos", this.goodsDAO.findPhotoNameByGid(gids)); // 获取要删除的全部图片
+        map.put("flag", this.goodsDAO.doRemove(gids)); // 数据删除
+        return map;
     }
 
 }

@@ -1,7 +1,9 @@
 package com.yootk.mall.dao.impl;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,10 +38,25 @@ public class GoodsDAOImpl extends AbstractDAO implements IGoodsDAO {
 
     @Override
     public boolean doRemove(Set<Long> ids) throws SQLException {
-        // TODO Auto-generated method stub
-        return false;
+        return super.handleRemove("goods", "gid", ids);
     }
-
+    @Override
+    public Set<String> findPhotoNameByGid(Set<Long> gids) throws SQLException {
+        Set<String> set = new HashSet<>(); // 创建Set集合
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT photo FROM goods WHERE photo!=? AND gid in (");
+        gids.forEach( gid ->
+                sql.append(gid).append(",")
+        );
+        sql.delete(sql.length() - 1, sql.length()).append(")");
+        super.pstmt = super.connection.prepareStatement(sql.toString());
+        super.pstmt.setString(1, "nophoto.jpg");
+        ResultSet rs = super.pstmt.executeQuery();
+        while (rs.next()) {
+            set.add(rs.getString(1)); // 获取全部图片名称
+        }
+        return set;
+    }
     @Override
     public Goods findById(Long id) throws SQLException {
         String sql = "SELECT gid,name,price,photo FROM goods WHERE gid=?";
@@ -79,5 +96,6 @@ public class GoodsDAOImpl extends AbstractDAO implements IGoodsDAO {
     public Long getAllCount(String column, String keyWord) throws SQLException {
         return super.countHandle("goods", column, keyWord);
     }
+
 
 }

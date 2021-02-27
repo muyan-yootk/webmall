@@ -3,6 +3,7 @@ package com.yootk.mall.service.back;
 import com.yootk.mall.vo.Goods;
 
 import java.util.Map;
+import java.util.Set;
 
 public interface IGoodsServiceBack {
     public boolean add(Goods vo) throws Exception ;
@@ -21,4 +22,14 @@ public interface IGoodsServiceBack {
     public Map<String, Object> list(int currentPage, int lineSize, String column, String keyWord) throws Exception;
     public Goods editPre(long gid) throws Exception; // 修改之前实现数据的查询操作
     public boolean edit(Goods vo) throws Exception; // 编辑当前的商品数据
+
+    /**
+     * 根据gids删除数据信息
+     * @param gids 要删除的全部的商品编号集合
+     * @return 返回有两类的数据信息，具体的组成要求如下：
+     * 1、key = flag、value = 删除成功与否的标记；
+     * 2、key = photos、value = Set集合，要删除数据的图片集合信息
+     * @throws Exception SQL异常
+     */
+    public Map<String, Object> delete(Set<Long> gids) throws Exception;
 }

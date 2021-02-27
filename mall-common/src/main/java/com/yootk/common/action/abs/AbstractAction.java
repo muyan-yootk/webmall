@@ -5,10 +5,7 @@ import com.yootk.common.servlet.MultipartFile;
 import com.yootk.common.servlet.ServletObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class AbstractAction { // 所有Action的父类
     public String getUploadPath() { // 是为了上传准备的
@@ -100,5 +97,14 @@ public abstract class AbstractAction { // 所有Action的父类
     }
     public String getMessge(String key, String ... params) {
         return ResourceUtil.getMessage(key,params) ;
+    }
+
+    public Set<Long> splitIds(String data) {
+        Set<Long> ids = new HashSet<>(); // 保存全部处理的id信息
+        String result[] = data.split(";"); // 根据分号进行数据的拆分处理
+        for (String temp : result) {
+            ids.add(Long.parseLong(temp)); // 保存删除集合
+        }
+        return ids;
     }
 }

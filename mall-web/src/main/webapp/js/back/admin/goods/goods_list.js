@@ -18,16 +18,16 @@ $(function() {
         if (data == "") {   // 此时没有选中任何的内容
             operateAlert(false,"","请先选择要删除的商品信息！") ;
         } else {
-            // $.get("pages/back/admin/goods/delete.action",{"data":data},function(data){
-            //     operateAlert(data.trim() == "true","商品信息删除成功！","商品信息删除失败！") ;
+            $.get("pages/back/admin/goods/delete.action",{"data":data},function(data){
+                operateAlert(data.trim() == "true","商品信息删除成功！","商品信息删除失败！") ;
                 if (data.trim() == "true") {    // 删除对应的表格行的信息
                     for (x = 0 ; x < gidArray.length ; x ++) {
-                        $("#goods-" + gidArray).fadeOut(1000,function() {
-                            $("#goods-" + gidArray).remove() ;
+                        $("#goods-" + gidArray[x]).fadeOut(1000,function() {
+                            $("#goods-" + gidArray[x]).remove() ;
                         }) ;
                     }
                 }
-            // },"text") ;
+            },"text") ;
         }
     })
 })

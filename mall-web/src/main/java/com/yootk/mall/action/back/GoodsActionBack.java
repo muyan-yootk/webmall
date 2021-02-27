@@ -12,11 +12,25 @@ import com.yootk.mall.service.back.IGoodsServiceBack;
 import com.yootk.mall.util.UploadFileToServer;
 import com.yootk.mall.vo.Goods;
 
+import java.util.Map;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/pages/back/admin/goods/")
 public class GoodsActionBack extends AbstractAction {
     @Autowired
     private IGoodsServiceBack goodsService;
+    @RequestMapping("delete")
+    public void delete(String data) {
+        Set<Long> ids = super.splitIds(data);// 数据拆分
+        System.out.println("【删除ID集合】" + ids);
+        try {
+            Map<String, Object> result = this.goodsService.delete(ids);
+            super.print(result.get("flag"));
+        } catch (Exception e) {
+            super.print("false"); // Ajax直接输出响应
+        }
+    }
 
     @RequestMapping("edit_pre")
     public ModelAndView editPre(long gid) { // 更新之前需要传递gid信息

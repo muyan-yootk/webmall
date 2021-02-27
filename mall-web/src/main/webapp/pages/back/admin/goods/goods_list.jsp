@@ -34,8 +34,9 @@
                     <thead>
                         <tr id="goods-title">
                             <td class="text-center" style="width:5%"><input type="checkbox" id="selectall"></td>
+                            <td class="text-center" style="width:10%">商品ID</td>
                             <td class="text-center" style="width:20%">商品图片</td>
-                            <td class="text-center" style="width:55%">商品名称</td>
+                            <td class="text-center" style="width:45%">商品名称</td>
                             <td class="text-center" style="width:10%">商品价格</td>
                             <td class="text-center" style="width:10%">操作</td>
                         </tr>
@@ -44,6 +45,7 @@
                     <c:forEach items="${allGoods}" var="goods">
                         <tr id="goods-${goods.gid}">
                             <td class="text-center"><input type="checkbox" id="gid" value="${goods.gid}"></td>
+                            <td class="text-center">${goods.gid}</td>
                             <td class="text-center"><img src="http://upload-server/upload/goods/${goods.photo}" style="width:30px;"></td>
                             <td>${goods.name}</td>
                             <td>￥${goods.price}</td>
