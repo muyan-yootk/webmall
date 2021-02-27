@@ -33,4 +33,15 @@ public class GoodsServiceBackImpl extends AbstractService implements IGoodsServi
         }
         return map;
     }
+
+    @Override
+    public Goods editPre(long gid) throws Exception {
+        return this.goodsDAO.findById(gid);
+    }
+
+    @Override
+    public boolean edit(Goods vo) throws Exception {
+        return this.goodsDAO.doEdit(vo);
+    }
+
 }

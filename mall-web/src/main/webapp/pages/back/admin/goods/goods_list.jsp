@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/back/admin/goods/goods_list.js"></script>
 </head>
 <%!
-    public static final String GOODS_EDIT_URL = "pages/back/admin/goods/edit.action" ;
+    public static final String GOODS_EDIT_URL = "pages/back/admin/goods/edit_pre.action" ;
 %>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -44,11 +44,13 @@
                     <c:forEach items="${allGoods}" var="goods">
                         <tr id="goods-${goods.gid}">
                             <td class="text-center"><input type="checkbox" id="gid" value="${goods.gid}"></td>
-                            <td class="text-center"><img src="http://upload-server/upload/${goods.photo}" style="width:30px;"></td>
+                            <td class="text-center"><img src="http://upload-server/upload/goods/${goods.photo}" style="width:30px;"></td>
                             <td>${goods.name}</td>
                             <td>￥${goods.price}</td>
                             <td>
-                                <button id="${goods.gid}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
+                                <a id="${goods.gid}" href="<%=GOODS_EDIT_URL%>?gid=${goods.gid}"
+                                   class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
                             </td>
                         </tr>
                     </c:forEach>

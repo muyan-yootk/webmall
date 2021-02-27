@@ -19,4 +19,6 @@ public interface IGoodsServiceBack {
      * @throws Exception SQL
      */
     public Map<String, Object> list(int currentPage, int lineSize, String column, String keyWord) throws Exception;
+    public Goods editPre(long gid) throws Exception; // 修改之前实现数据的查询操作
+    public boolean edit(Goods vo) throws Exception; // 编辑当前的商品数据
 }
