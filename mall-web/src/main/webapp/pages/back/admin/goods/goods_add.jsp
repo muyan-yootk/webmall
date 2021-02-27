@@ -8,7 +8,7 @@
     <script type="text/javascript" src="js/back/admin/goods/goods_add.js"></script>
 </head>
 <%!
-    public static final String GOODS_ADD_URL = "pages/back/admin/goods/goods_add.action" ;
+    public static final String GOODS_ADD_URL = "pages/back/admin/goods/add.action" ;
 %>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

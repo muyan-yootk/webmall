@@ -71,6 +71,9 @@ public abstract class AbstractAction { // 所有Action的父类
     public String getForwardPage() {
         return this.getPageResource("forward.page");
     }
+    public String getBackForwardPage() {
+        return this.getPageResource("back.forward.page");
+    }
 
     /**
      * 获取登陆后显示的首页信息
@@ -79,6 +82,14 @@ public abstract class AbstractAction { // 所有Action的父类
     public String getIndexPage() {
         return this.getPageResource("index.page");
     }
+
+    public String createUploadFileName(MultipartFile file) {
+        if (file == null) { // 现在没有文件名称
+            return "nophoto.png"; // 默认的文件名称
+        }
+        return UUID.randomUUID() + "." + file.getContentType().substring(file.getContentType().lastIndexOf("/") + 1);
+    }
+
     /**
      * 得到跳转路径
      * @param key

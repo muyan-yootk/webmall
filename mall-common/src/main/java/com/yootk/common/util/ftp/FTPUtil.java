@@ -6,14 +6,16 @@ import org.apache.commons.net.ftp.FTPFile;
 import java.io.*;
 
 public class FTPUtil {
+    public static final String FTP_PARENT_PATH = "/var/ftp";
     /**
      * FTP文件上传
-     * @param ftpPath 上传路径（"/var/ftp/yootk/"），如果路径不存在会自动创建
+     * @param uploadPath 上传路径（"/upload/goods"），如果路径不存在会自动创建
      * @param file 上传文件
      * @return 上传成功返回true，否则返回false
      * @throws Exception
      */
-    public static boolean upload(String ftpPath, File file) throws Exception {
+    public static boolean upload(String uploadPath, File file, String fileName) throws Exception {
+        String ftpPath = FTP_PARENT_PATH + uploadPath; // 最终上传的路径
         boolean flag = false;
         FTPClient client = FTPConnection.getFTPClient(); // 获取FTP连接
         client.enterLocalPassiveMode(); // 采用被动模式
@@ -24,7 +26,7 @@ public class FTPUtil {
         }
         // 所有的文件是以二进制数据流的形式进行传输的，所以一定要通过InputStream获取一个输入流
         InputStream input = new FileInputStream(file); // 文件输入流
-        String tempName = ftpPath + file.getName(); // FTP文件保存名称
+        String tempName = ftpPath + fileName; // FTP文件保存名称
         String ftpFileName = new String(tempName.getBytes("UTF-8"), "ISO-8859-1");
         // 在进行文件保存的需要明确配置存储文件的名称，同时利用输入流进行数据的传输
         if (client.storeFile(ftpFileName, input)) {
