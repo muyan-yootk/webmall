@@ -4,11 +4,7 @@ import com.yootk.common.action.abs.AbstractAction;
 import com.yootk.common.mvc.annotation.Autowired;
 import com.yootk.common.mvc.annotation.Controller;
 import com.yootk.common.mvc.annotation.RequestMapping;
-import com.yootk.common.mvc.util.ResourceUtil;
-import com.yootk.common.servlet.CookieUtil;
 import com.yootk.common.servlet.ModelAndView;
-import com.yootk.common.servlet.ServletObject;
-import com.yootk.common.util.encrypt.EncryptUtil;
 import com.yootk.mall.service.front.IMemberServiceFront;
 import com.yootk.mall.vo.Member;
 
@@ -37,10 +33,6 @@ public class MemberActionFront extends AbstractAction {
     @RequestMapping("/member_logout")
     public ModelAndView logout() {
         ModelAndView mav = new ModelAndView(super.getForwardPage());
-        CookieUtil.clean(ServletObject.getResponse(), "info");
-        ServletObject.getRequest().getSession().invalidate();
-        mav.add(AbstractAction.PATH_ATTRIBUTE_NAME, super.getIndexPage());
-        mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("logout.success", ACTION_TITLE));
         return mav;
     }
 
@@ -51,12 +43,6 @@ public class MemberActionFront extends AbstractAction {
      */
     @RequestMapping("/code_check")
     public void check(String code) {
-        String rand = (String) ServletObject.getRequest().getSession().getAttribute("rand");
-        if (rand == null || "".equals(rand)) {
-            super.print(false);
-        } else {
-            super.print(rand.equalsIgnoreCase(code));
-        }
     }
 
     /**
@@ -68,22 +54,7 @@ public class MemberActionFront extends AbstractAction {
      */
     @RequestMapping("/member_login")
     public ModelAndView login(Member vo, String rememberme) throws Exception {
-        ModelAndView mav = new ModelAndView(super.getPage("login.action"));
-        vo.setPassword(EncryptUtil.encode(vo.getPassword()));
-        if (memberService.login(vo)) {
-            ServletObject.getRequest().getSession().setAttribute("mid", vo.getMid());
-            mav.setView(super.getForwardPage());
-            mav.add(AbstractAction.PATH_ATTRIBUTE_NAME, super.getIndexPage());
-            mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("login.success", ACTION_TITLE));
-            if (rememberme != null && "true".equals(rememberme)) {
-                // 将用户信息保存在Cookie之中，方便用户下一次免登录操作
-                CookieUtil.set("info", vo.getMid() + ":" + vo.getPassword(), ServletObject.getResponse());
-            }
-        } else {
-            mav.add(AbstractAction.PATH_ATTRIBUTE_NAME, super.getPage("login.page"));
-            mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("login.failure", ACTION_TITLE));
-        }
-        return mav;
+        return null;
     }
 
     @Override
