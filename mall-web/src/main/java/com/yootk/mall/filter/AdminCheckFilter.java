@@ -1,5 +1,6 @@
 package com.yootk.mall.filter;
 
+import com.yootk.common.util.CookieUtil;
 import com.yootk.mall.util.MallDataUtil;
 import com.yootk.mall.vo.Member;
 import jakarta.servlet.FilterChain;
@@ -23,6 +24,7 @@ public class AdminCheckFilter extends HttpFilter { // 过滤器
             } else {    // 不是1就是0
                 req.setAttribute("msg", "您不是管理员，别干越权的事情，否则容易被劈！");
                 req.setAttribute("url", "/member_login_pre.action");
+                CookieUtil.clean(MallDataUtil.LOGIN_COOKIE_KEY); // 清除指定的Cookie
                 req.getSession().invalidate(); // Session注销
                 req.getRequestDispatcher("/pages/plugins/forward.jsp").forward(req, res);
             }

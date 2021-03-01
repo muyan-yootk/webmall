@@ -38,6 +38,8 @@ public class MemberActionFront extends AbstractAction {
     @RequestMapping("/member_logout")
     public ModelAndView logout() {
         ModelAndView mav = new ModelAndView(super.getForwardPage());
+        CookieUtil.clean(MallDataUtil.LOGIN_COOKIE_KEY); // 清除指定的Cookie
+        ServletObject.getSession().invalidate(); // 注销操作
         return mav;
     }
 

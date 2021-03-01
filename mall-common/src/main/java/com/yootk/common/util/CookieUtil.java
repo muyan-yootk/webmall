@@ -40,4 +40,14 @@ public class CookieUtil { // 创建一个Cookie的工具类
         }
         return null;
     }
+
+    /**
+     * Cookie数据清除
+     * @param key 要清除的key的内容
+     */
+    public static void clean(String key) {
+        Cookie cookie = new Cookie(key, "www.yootk.com");// 创建Cookie对象
+        cookie.setMaxAge(0); // 让Cookie的时间为0
+        ServletObject.getResponse().addCookie(cookie);// 保存Cookie到客户端
+    }
 }
