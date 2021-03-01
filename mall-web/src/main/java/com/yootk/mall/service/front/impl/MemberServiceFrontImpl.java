@@ -31,11 +31,13 @@ public class MemberServiceFrontImpl extends AbstractService implements IMemberSe
     @Override
     public boolean login(Member vo) throws Exception {
         Member member = this.memberDAO.findById(vo.getMid());    // 根据mid获取Member信息
+        System.err.println(member);
         if (member != null) { // 如果此时可以查询到用户信息
             try {
                 return member.getPassword().equals(vo.getPassword()); // 密码匹配
             } finally { // 不管最终结果如何都要执行如下代码
                 vo.setName(member.getName());
+                vo.setLevel(member.getLevel());
             }
         }
         return false;

@@ -39,7 +39,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
 
 	@Override
 	public Member findById(String id) throws SQLException {
-		String sql = "SELECT mid,name,password FROM member WHERE mid=?" ;
+		String sql = "SELECT mid,name,password,level FROM member WHERE mid=?" ;
 		super.pstmt = super.connection.prepareStatement(sql) ;
 		super.pstmt.setString(1, id);
 		ResultSet rs = super.pstmt.executeQuery() ;
@@ -48,6 +48,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
 			vo.setMid(rs.getString(1));
 			vo.setName(rs.getString(2));
 			vo.setPassword(rs.getString(3));
+			vo.setLevel(rs.getInt(4));
 			return vo ;
 		}
 		return null;
