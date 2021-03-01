@@ -46,7 +46,7 @@
 									<div class="col-md-5">
 										<!-- 定义表单输入组件 -->
 										<input type="password" id="password" name="password" class="form-control"
-											placeholder="请输入登录密码" value="hello">
+											placeholder="请输入登录密码">
 									</div>
 									<!-- 定义表单错误提示显示元素 -->
 									<div class="col-md-4" id="passwordMsg"></div>
@@ -57,8 +57,8 @@
 									<div class="col-md-3">
 										<!-- 定义表单输入组件 -->
 										<input type="text" id="code" name="code" class="form-control"
-											placeholder="验证码" size="4" maxlength="4">
-									</div> 
+											   placeholder="验证码" size="4" maxlength="4">
+									</div>
 									<div class="col-md-2">
 										<img src="ImageCode" id="imageCode" title="看不清？单击换一张图片">
 									</div>

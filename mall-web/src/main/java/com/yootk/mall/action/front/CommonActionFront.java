@@ -14,6 +14,8 @@ public class CommonActionFront extends AbstractAction {
     @RequestMapping("/check_code")
     public void checkCode(String code) {
         String rand = (String) ServletObject.getSession().getAttribute("rand"); // 获取生成验证码
+        System.out.println("********************* 用户输入的信息：" + code);
+        System.out.println("********************* 生成的信息：" + rand);
         if (rand == null || "".equals(rand)) {
             super.print(false); // 验证码没有生成
         } else {

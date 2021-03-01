@@ -5,6 +5,7 @@ import com.yootk.common.mvc.annotation.Autowired;
 import com.yootk.common.mvc.annotation.Controller;
 import com.yootk.common.mvc.annotation.RequestMapping;
 import com.yootk.common.servlet.ModelAndView;
+import com.yootk.common.servlet.ServletObject;
 import com.yootk.common.util.encrypt.EncryptUtil;
 import com.yootk.common.util.ftp.FTPUtil;
 import com.yootk.mall.service.front.IMemberServiceFront;
@@ -57,14 +58,21 @@ public class MemberActionFront extends AbstractAction {
 
     /**
      * 用户登录处理
-     *
      * @param vo         包含有用户登录信息
-     * @param rememberme 是否要执行免登录
      * @return 登录成功返回信息提示页（随后跳转到商品列表页），登录失败返回登录页
      */
     @RequestMapping("/member_login")
-    public ModelAndView login(Member vo, String rememberme) throws Exception {
-        return null;
+    public ModelAndView login(Member vo) throws Exception {
+        String msg = super.getMessge("login.failure") ; // 保存返回的提示信息
+        ModelAndView mav = new ModelAndView(super.getForwardPage()); // 最终跳转页
+        vo.setPassword(EncryptUtil.getMD5Encode(vo.getPassword())); // 对密码进行加密处理
+        if (this.memberService.login(vo)) { // 登录成功
+            ServletObject.getSession().setAttribute("member", vo); // 实现用户登录状态的存储
+            msg = super.getMessge("login.success"); // 登录成功的信息
+        }
+        mav.add(AbstractAction.PATH_ATTRIBUTE_NAME, super.getIndexPage()); // 登录成功返回到首页
+        mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, msg); // 登录的提示信息
+        return mav;
     }
 
     @RequestMapping("/member_regist")

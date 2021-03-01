@@ -16,10 +16,10 @@
 			<img src="images/muyan_yootk.png" style="width:100px;"></a>
 	</div>
 	<ul class="nav navbar-nav">
-		<c:if test="${mid==null}"> 
+		<c:if test="${member == null}">
 			<li><a href="<%=member_login_url%>"><span class="glyphicon glyphicon-user"></span>&nbsp;登录</a></li>
 		</c:if>
-<%--		<c:if test="${mid!=null}"> --%>
+		<c:if test="${member != null}">
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>&nbsp;个人中心<span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -32,7 +32,7 @@
 				</ul></li>
 			<li><a href="<%=shopcar_list_url%>">
 				<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;我的购物车</a></li>
-<%--		</c:if>--%>
+		</c:if>
 		<li><a href="https://www.yootk.com/resources">
 			<span class="glyphicon glyphicon-leaf"></span>&nbsp;直播课程回放</a></li>
 	</ul> 

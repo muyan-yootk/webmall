@@ -34,4 +34,14 @@ public class Member implements Serializable {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
+
+	@Override
+	public String toString() {
+		return "Member{" +
+				"mid='" + mid + '\'' +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", level=" + level +
+				'}';
+	}
 }
