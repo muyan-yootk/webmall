@@ -27,8 +27,10 @@
 						<span class="glyphicon glyphicon-list-alt"></span>&nbsp;订单列表</a></li>
 					<li><a href="<%=member_logout_url%>">
 						<span class="glyphicon glyphicon-log-out"></span>&nbsp;系统注销</a></li>
-					<li><a href="<%=admin_url%>">
-						<span class="glyphicon glyphicon-cog"></span>&nbsp;后台管理</a></li>
+					<c:if test="${member.level == 1}">
+						<li><a href="<%=admin_url%>">
+							<span class="glyphicon glyphicon-cog"></span>&nbsp;后台管理</a></li>
+					</c:if>
 				</ul></li>
 			<li><a href="<%=shopcar_list_url%>">
 				<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;我的购物车</a></li>

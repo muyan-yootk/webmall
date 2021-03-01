@@ -4,6 +4,7 @@ import com.yootk.mall.vo.Member;
 
 public class MallDataUtil { // 创建一个工具类
     public static final String LOGIN_COOKIE_KEY = "yootk-user"; // 做一个存储标记
+    public static final String LOGIN_SESSION_NAME = "member";
     public static final Integer COOKIE_MAXAGE = 864000;
     private MallDataUtil() {}
     public static String createLoginData(Member member) {
