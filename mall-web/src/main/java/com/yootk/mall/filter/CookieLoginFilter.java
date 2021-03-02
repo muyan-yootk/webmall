@@ -18,11 +18,10 @@ public class CookieLoginFilter extends HttpFilter { // 实现Cookie登录的过�
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String value = CookieUtil.load(req, MallDataUtil.LOGIN_COOKIE_KEY); // 获取当前的Cookie数据
-        System.out.println("value = " + value);
         if (value != null) {    // 此时存在有Cookie信息
             Member member = MallDataUtil.parseLoginData(value); // 将Cookie数据进行解析
             if (member != null) {   // 当前存在有member正确数据
-                req.setAttribute("member", member); // 保存在session之中
+                req.getSession().setAttribute("member", member); // 保存在session之中
             }
         }
         chain.doFilter(req, res); // 直接放行

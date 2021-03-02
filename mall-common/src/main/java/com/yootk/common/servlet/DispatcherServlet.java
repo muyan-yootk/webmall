@@ -103,7 +103,7 @@ public class DispatcherServlet extends HttpServlet {
                 req.setAttribute("errors", errors); // 将所有的错误信息通过request属性进行传递
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         } finally {
              ServletObject.clean(); // 删除当前线程request/response
         }
