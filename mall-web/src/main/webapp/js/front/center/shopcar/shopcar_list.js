@@ -12,19 +12,19 @@ $(function() {
         }
     }) ;
     $("#editBtn").on("click",function(){	// 进行数据的修改操作
-        jsonData = "[" ; // 实现json数据的拼凑
+        jsonData = "" ; // 实现json数据的拼凑
         $("input[id^=amount-]").each(function() {	// 获取所有的数据输入框
             gid = $(this).attr("id").split("-") [1] ; // 获取商品编号
             amount = $(this).val() ; // 获取设置的数量
-            tempData = "{\"gid\":" + gid + ",\"amount\":" + amount + "}," ;
+            tempData = gid + ":" + amount + "|" ;
             jsonData = jsonData + tempData ;
         }) ;
-        jsonData = jsonData.substring(0,jsonData.length - 1) + "]" ;
+        jsonData = jsonData.substring(0,jsonData.length - 1);
         console.log(jsonData) ;
-        // $.post("pages/front/center/shopcar/shopcar_batch.action",{data:jsonData},
-        //     function(data){
-        //         operateAlert(data.flag,"购物车商品信息修改成功！","购物车商品信息修改失败！") ;
-        //     },"json") ;
+        $.post("pages/front/center/shopcar/edit_batch.action",{data:jsonData},
+            function(data){
+                operateAlert(data.trim() == "true","购物车商品信息修改成功！","购物车商品信息修改失败！") ;
+            },"text") ;
     }) ;
     $("#selectAll").on("click",function(){
         checkboxSelectAll('gid',this.checked) ;
@@ -87,19 +87,13 @@ $(function() {
         $(this).on("click",function(){
             update_gid = $(this).attr("id").split("-")[1] ; // 获取gid的数据
             amount = parseInt($("#amount-" + update_gid).val()) ; // 获取原始的amount数据
-            if (amount != 0) {
-                // $.post("pages/front/center/shopcar/shopcar_edit.action",
-                //     {"gid" : update_gid , "amount" : amount} , function(data){
-                //         operateAlert(data.flag,"购物车商品信息修改成功！","购物车商品信息修改失败！") ;
-                //     },"json") ;
-            } else {	// 现在已经没有选择
-                // $.post("pages/front/center/shopcar/shopcar_remove.action",
-                //     {"ids" : update_gid} , function(data){
-                //         console.log(update_gid) ;
-                //         $("#goods-" + update_gid).remove() ;
-                //         operateAlert(data.flag,"购物车商品移除成功！","购物车商品移除失败！") ;
-                //     },"json") ;
-            }
+            $.post("pages/front/center/shopcar/edit.action",
+                {"gid" : update_gid , "amount" : amount} , function(data){
+                    if (amount == 0) {
+                        $("#shopcar-" + update_gid).remove() ;
+                    }
+                    operateAlert(data.trim() == "true","购物车商品信息修改成功！","购物车商品信息修改失败！") ;
+                },"text") ;
             calcAllPrice() ; // 在页面加载完成之后进行总价的计算
         }) ;
     })

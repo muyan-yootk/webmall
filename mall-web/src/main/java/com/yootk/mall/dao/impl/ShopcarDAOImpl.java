@@ -36,6 +36,20 @@ public class ShopcarDAOImpl extends AbstractDAO implements IShopcarDAO {
     }
 
     @Override
+    public boolean doEditAmountBatch(List<Shopcar> cars) throws Exception {
+        String sql = "UPDATE shopcar SET amount=? WHERE mid=? AND gid=?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        for (Shopcar car : cars) {
+            super.pstmt.setInt(1, car.getAmount());
+            super.pstmt.setString(2, car.getMid());
+            super.pstmt.setLong(3, car.getGid());
+            super.pstmt.addBatch(); // 增加批处理
+        }
+        super.pstmt.executeBatch(); // 执行批处理
+        return true;
+    }
+
+    @Override
     public List<Goods> findAllGoodsByMid(String mid) throws SQLException {
         String sql = "SELECT gid,name,price,photo FROM goods " +
                 " WHERE gid IN (SELECT gid FROM shopcar WHERE mid=?)";
@@ -56,6 +70,15 @@ public class ShopcarDAOImpl extends AbstractDAO implements IShopcarDAO {
             map.put(rs.getLong(1), rs.getInt(2)); // 保存购物车数据
         }
         return map;
+    }
+
+    @Override
+    public boolean doRemoveByMidAndGid(String mid, Long gid) throws SQLException {
+        String sql = "DELETE FROM shopcar WHERE mid=? AND gid=?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setString(1, mid);
+        super.pstmt.setLong(2, gid);
+        return super.pstmt.executeUpdate() > 0;
     }
 
     @Override

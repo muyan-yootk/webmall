@@ -9,6 +9,7 @@ import com.yootk.mall.service.front.IShopcarServiceFront;
 import com.yootk.mall.vo.Shopcar;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -16,6 +17,23 @@ import java.util.Map;
 public class ShopcarServiceFrontImpl extends AbstractService implements IShopcarServiceFront {
     @Autowired
     private IShopcarDAO shopcarDAO; // 注入DAO对象实例
+
+    @Override
+    public boolean editBatchAmount(List<Shopcar> cars) throws Exception {
+        if (cars == null || cars.size() == 0) { // 集合不存在
+            return false;
+        }
+        return this.shopcarDAO.doEditAmountBatch(cars);
+    }
+
+    @Override
+    public boolean editAmount(Shopcar car) throws Exception {
+        if (car.getAmount() == 0) { // 表示删除
+            return this.shopcarDAO.doRemoveByMidAndGid(car.getMid(), car.getGid());
+        } else {
+            return this.shopcarDAO.doEditAmount(car.getMid(), car.getGid(), car.getAmount());
+        }
+    }
 
     @Override
     public boolean add(Shopcar shopcar) throws Exception {

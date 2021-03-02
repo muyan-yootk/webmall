@@ -2,9 +2,14 @@ package com.yootk.mall.service.front;
 
 import com.yootk.mall.vo.Shopcar;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IShopcarServiceFront { // 前台购物车业务
+
+    public boolean editBatchAmount(List<Shopcar> cars) throws Exception;
+    public boolean editAmount(Shopcar car) throws Exception;
+
     /**
      * 用户在添加购物车时所使用的业务处理方法
      * @param shopcar 包含用户购物车操作的信息

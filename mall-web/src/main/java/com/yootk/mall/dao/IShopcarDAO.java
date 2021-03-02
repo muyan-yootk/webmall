@@ -28,6 +28,8 @@ public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
      */
     public boolean doEditAmount(String mid, Long gid, Integer amount) throws SQLException;
 
+    public boolean doEditAmountBatch(List<Shopcar> cars) throws Exception;
+
     /**
      * 根据用户查询出对应的所有商品信息
      * @param mid 用户的ID信息
@@ -43,4 +45,13 @@ public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
      * @throws SQLException
      */
     public Map<Long, Integer> findAllByMid(String mid) throws SQLException;
+
+    /**
+     * 删除购物车之中的商品信息
+     * @param mid 用户ID
+     * @param gid 商品ID
+     * @return 成功返回true，否则返回false
+     * @throws SQLException
+     */
+    public boolean doRemoveByMidAndGid(String mid, Long gid) throws SQLException;
 }
