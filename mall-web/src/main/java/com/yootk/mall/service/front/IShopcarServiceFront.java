@@ -7,6 +7,8 @@ import java.util.Map;
 
 public interface IShopcarServiceFront { // 前台购物车业务
 
+    public boolean deleteBatch(List<Shopcar> cars) throws Exception;
+
     public boolean editBatchAmount(List<Shopcar> cars) throws Exception;
     public boolean editAmount(Shopcar car) throws Exception;
 

@@ -33,22 +33,23 @@ $(function() {
     $("#rmBtn").on("click",function(){	// 进行删除事件的绑定处理
         ids = "" ; // 保存所有要删除数据的id
         $("#gid:checked").each(function() {
-            ids += $(this).val() + ";" ;
-            //console.log("要移除购物车的商品ID：" + $(this).val()) ;
+            ids += $(this).val() + "|" ;
+            // console.log("要移除购物车的商品ID：" + $(this).val()) ;
         })
+        console.log(ids)
         if (ids == "") {	// 没有要移除的商品
             operateAlert(false,"","请先选择要移除的商品！") ;
         } else {	// 现在有了要删除的数据，此时应该发送ajax异步请求进行删除调用
-            // $.post("pages/front/center/shopcar/shopcar_remove.action",
-            //     {"ids" : ids} , function(data){
-            //         if (data.flag) {
-            //             $("#gid:checked").each(function() {
-            //                 $("#goods-" + $(this).val()).remove() ;
-            //             })
-            //             calcAllPrice() ; // 在页面加载完成之后进行总价的计算
-            //         }
-            //         operateAlert(data.flag,"购物车商品移除成功！","购物车商品移除失败！") ;
-            //     },"json") ;
+            $.post("pages/front/center/shopcar/remove_batch.action",
+                {"data" : ids} , function(data){
+                    if (data.trim() == "true") {
+                        $("#gid:checked").each(function() {
+                            $("#shopcar-" + $(this).val()).remove() ;
+                        })
+                        calcAllPrice() ; // 在页面加载完成之后进行总价的计算
+                    }
+                    operateAlert(data.trim() == "true","购物车商品移除成功！","购物车商品移除失败！") ;
+                },"text") ;
         }
     }) ;
     $("input[id^=amount-]").each(function(){

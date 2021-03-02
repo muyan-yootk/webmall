@@ -54,4 +54,12 @@ public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
      * @throws SQLException
      */
     public boolean doRemoveByMidAndGid(String mid, Long gid) throws SQLException;
+
+    /**
+     * 数据的批量删除
+     * @param cars 包含有mid以及gid数据内容
+     * @return 删除成功返回true，否则返回false
+     * @throws SQLException
+     */
+    public boolean doRemoveByMidAndGidBatch(List<Shopcar> cars) throws SQLException;
 }

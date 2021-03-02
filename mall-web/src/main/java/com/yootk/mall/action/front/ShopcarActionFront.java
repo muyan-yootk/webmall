@@ -20,6 +20,26 @@ public class ShopcarActionFront extends AbstractAction {
     @Autowired
     private IShopcarServiceFront shopcarServiceFront; // 业务注入
 
+    @RequestMapping("remove_batch")
+    public void removeBatch(String data) { // 要修改的数据项，数据格式：gid|gid|gid
+        Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
+        String result[] = data.split("\\|");
+        List<Shopcar> carList = new ArrayList<>();
+        for (String res : result) {
+            Shopcar car = new Shopcar();
+            car.setMid(member.getMid());
+            car.setGid(Long.parseLong(res)); // 商品编号
+            carList.add(car); // 保存在List集合
+        }
+        try {
+            super.print(this.shopcarServiceFront.deleteBatch(carList));
+        } catch (Exception e) {
+            e.printStackTrace();
+            super.print(false);
+        }
+    }
+
+
     @RequestMapping("edit_batch")
     public void editBatch(String data) { // 要修改的数据项
         // 假设现在传递的修改参数的内容为：gid:amount|gid:amount|...

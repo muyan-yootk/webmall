@@ -19,6 +19,14 @@ public class ShopcarServiceFrontImpl extends AbstractService implements IShopcar
     private IShopcarDAO shopcarDAO; // 注入DAO对象实例
 
     @Override
+    public boolean deleteBatch(List<Shopcar> cars) throws Exception {
+        if (cars == null || cars.size() == 0) { // 集合不存在
+            return false;
+        }
+        return this.shopcarDAO.doRemoveByMidAndGidBatch(cars);
+    }
+
+    @Override
     public boolean editBatchAmount(List<Shopcar> cars) throws Exception {
         if (cars == null || cars.size() == 0) { // 集合不存在
             return false;
