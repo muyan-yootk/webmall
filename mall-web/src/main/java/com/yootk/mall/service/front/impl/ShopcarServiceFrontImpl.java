@@ -8,11 +8,15 @@ import com.yootk.mall.dao.IShopcarDAO;
 import com.yootk.mall.service.front.IShopcarServiceFront;
 import com.yootk.mall.vo.Shopcar;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @Aspect
 public class ShopcarServiceFrontImpl extends AbstractService implements IShopcarServiceFront {
     @Autowired
     private IShopcarDAO shopcarDAO; // 注入DAO对象实例
+
     @Override
     public boolean add(Shopcar shopcar) throws Exception {
         // 1、在进行增加之前首先一定要判断该条数据内容是否在当前的购物表中已经正常保存
@@ -25,5 +29,13 @@ public class ShopcarServiceFrontImpl extends AbstractService implements IShopcar
         } else {    // 当前的商品数据已经添加过了
             return this.shopcarDAO.doEditAmount(shopcar.getMid(), shopcar.getGid(), dbCar.getAmount() + 1);
         }
+    }
+
+    @Override
+    public Map<String, Object> list(String mid) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        result.put("allGoods", this.shopcarDAO.findAllGoodsByMid(mid)); // 查询购物车中完整的商品信息
+        result.put("shopcar", this.shopcarDAO.findAllByMid(mid)); // 购物车数量
+        return result;
     }
 }

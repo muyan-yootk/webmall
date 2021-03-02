@@ -3,11 +3,14 @@ package com.yootk.mall.dao.impl;
 import com.yootk.common.dao.abs.AbstractDAO;
 import com.yootk.common.mvc.annotation.Repository;
 import com.yootk.mall.dao.IShopcarDAO;
+import com.yootk.mall.vo.Goods;
 import com.yootk.mall.vo.Shopcar;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -30,6 +33,29 @@ public class ShopcarDAOImpl extends AbstractDAO implements IShopcarDAO {
         super.pstmt.setString(2, mid);
         super.pstmt.setLong(3, gid);
         return super.pstmt.executeUpdate() > 0;
+    }
+
+    @Override
+    public List<Goods> findAllGoodsByMid(String mid) throws SQLException {
+        String sql = "SELECT gid,name,price,photo FROM goods " +
+                " WHERE gid IN (SELECT gid FROM shopcar WHERE mid=?)";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setString(1, mid);
+        ResultSet rs = super.pstmt.executeQuery();
+        return super.handleResultToList(rs, Goods.class);
+    }
+
+    @Override
+    public Map<Long, Integer> findAllByMid(String mid) throws SQLException {
+        Map<Long, Integer> map = new HashMap<>();
+        String sql = "SELECT gid,amount FROM shopcar WHERE mid=?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setString(1, mid);
+        ResultSet rs = super.pstmt.executeQuery();
+        while (rs.next()) { // 循环结果集
+            map.put(rs.getLong(1), rs.getInt(2)); // 保存购物车数据
+        }
+        return map;
     }
 
     @Override

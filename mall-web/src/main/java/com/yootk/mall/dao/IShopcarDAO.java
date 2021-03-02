@@ -1,9 +1,12 @@
 package com.yootk.mall.dao;
 
 import com.yootk.common.dao.base.IBaseDAO;
+import com.yootk.mall.vo.Goods;
 import com.yootk.mall.vo.Shopcar;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
     /**
@@ -24,4 +27,20 @@ public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
      * @throws SQLException SQL异常
      */
     public boolean doEditAmount(String mid, Long gid, Integer amount) throws SQLException;
+
+    /**
+     * 根据用户查询出对应的所有商品信息
+     * @param mid 用户的ID信息
+     * @return 购物车的所有商品完整数据
+     * @throws SQLException
+     */
+    public List<Goods> findAllGoodsByMid(String mid) throws SQLException;
+
+    /**
+     * 用户对应购物车中的商品数量内容
+     * @param mid 用户ID
+     * @return key为商品编号（gid）、value为商品的购物数量
+     * @throws SQLException
+     */
+    public Map<Long, Integer> findAllByMid(String mid) throws SQLException;
 }

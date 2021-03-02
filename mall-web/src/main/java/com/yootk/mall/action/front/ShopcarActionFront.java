@@ -19,6 +19,12 @@ public class ShopcarActionFront extends AbstractAction {
     @RequestMapping("shopcar_list")
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView(super.getPage("list.page"));
+        Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
+        try {
+            mav.add(this.shopcarServiceFront.list(member.getMid())); // 实现数据查询
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return mav;
     }
 
@@ -30,7 +36,6 @@ public class ShopcarActionFront extends AbstractAction {
     public void add(Shopcar car) {
         // 获取Session属性，因为所有登录成功的用户信息都会在session中保存有一个Member类的对象实例
         Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
-        System.out.println(member);
         car.setMid(member.getMid()); // 将当前的用户ID信息保存在购物车数据之中
         try {
             super.print(this.shopcarServiceFront.add(car));
