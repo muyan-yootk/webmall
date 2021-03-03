@@ -8,7 +8,7 @@
 <script type="text/javascript" src="js/front/center/orders/orders_add.js"></script>
 </head>
 <%
-	String orders_add_url = "pages/front/center/orders/orders_add.action" ;
+	String orders_add_url = "pages/front/center/orders/add.action" ;
 %>
 <body class="container-fluid">
 	<div class="contentback">

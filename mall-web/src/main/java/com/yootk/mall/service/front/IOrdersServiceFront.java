@@ -1,5 +1,7 @@
 package com.yootk.mall.service.front;
 
+import com.yootk.mall.vo.Orders;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -14,4 +16,13 @@ public interface IOrdersServiceFront { // 订单业务接口
      * @throws Exception
      */
     public Map<String, Object> preAdd(String mid, Set<Long> gids) throws Exception;
+
+    /**
+     * 实现订单的创建
+     * @param orders 订单完整信息内容
+     * @param gids 要进行订单详情添加的商品编号，同时也是删除购物车中数据的重要依据
+     * @return 增加成功返回true，否则返回false
+     * @throws Exception
+     */
+    public boolean add(Orders orders, Set<Long> gids) throws Exception;
 }

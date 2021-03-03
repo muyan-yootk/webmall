@@ -10,7 +10,9 @@ import com.yootk.common.servlet.ServletObject;
 import com.yootk.mall.service.front.IOrdersServiceFront;
 import com.yootk.mall.util.MallDataUtil;
 import com.yootk.mall.vo.Member;
+import com.yootk.mall.vo.Orders;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,11 +27,25 @@ public class OrdersActionFront extends AbstractAction {
 	 * 实现订单创建处理
 	 * @return 订单创建页面
 	 */
-	@RequestMapping("orders_add")
-	public ModelAndView add() {
+	@RequestMapping("add")
+	public ModelAndView add(Orders orders, Long[] gid) {
+		// 需要将gid的数组内容转为Set集合
+		Set<Long> gids = new HashSet<>();
+		gids.addAll(Arrays.asList(gid));
+		Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
+		orders.setMid(member.getMid()); // 保存当前用户的ID编号
 		ModelAndView mav = new ModelAndView(super.getForwardPage()) ;
-		mav.add(AbstractAction.PATH_ATTRIBUTE_NAME,super.getPage("list.action"));
-		mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("vo.add.success",ACTION_TITLE));
+		try {
+			if (this.ordersServiceFront.add(orders,gids)) { // 成功
+				mav.add(AbstractAction.PATH_ATTRIBUTE_NAME,super.getPage("list.action"));
+				mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("vo.add.success",ACTION_TITLE));
+			} else {	// 失败
+				mav.add(AbstractAction.PATH_ATTRIBUTE_NAME,super.getIndexPage()); // 失败返回到首页路径上
+				mav.add(AbstractAction.MSG_ATTRIBUTE_NAME, ResourceUtil.getMessage("vo.add.failure",ACTION_TITLE));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav ;
 	}
 	/**
