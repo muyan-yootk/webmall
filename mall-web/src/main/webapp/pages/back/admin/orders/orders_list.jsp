@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/back/admin/orders/orders_list.js"></script>
 </head>
 <%!
-    public static final String ORDERS_SHOW_URL = "pages/back/admin/orders/list.action";
+    public static final String ORDERS_SHOW_URL = "pages/back/admin/orders/details.action";
 %>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -54,7 +54,7 @@
                             <td class="text-center">${orders.phone}</td>
                             <td class="text-center">${orders.subdate}</td>
                             <td class="text-center">
-                                <a type="button" class="btn btn-primary btn-xs" href="<%=ORDERS_SHOW_URL%>">
+                                <a type="button" class="btn btn-primary btn-xs" href="<%=ORDERS_SHOW_URL%>?oid=${orders.oid}">
                                     <span class="glyphicon glyphicon-list-alt"></span>&nbsp;查看详情</a>
                             </td>
                         </tr>

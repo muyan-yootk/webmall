@@ -26,8 +26,13 @@ public class OrdersActionBack extends AbstractAction {
 		return mav;
 	}
 	@RequestMapping("details")
-	public ModelAndView detail() {
+	public ModelAndView detail(long oid) {
 		ModelAndView mav = new ModelAndView(super.getPage("details.page"));
+		try {
+			mav.add(this.ordersServiceBack.getDetails(oid));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
 	@Override
