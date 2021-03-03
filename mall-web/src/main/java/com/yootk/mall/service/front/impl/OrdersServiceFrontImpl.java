@@ -82,4 +82,22 @@ public class OrdersServiceFrontImpl extends AbstractService implements IOrdersSe
         map.put("allRecorders", this.ordersDAO.getAllCountByMid(mid));
         return map;
     }
+
+    @Override
+    public Map<String, Object> getDetails(String mid, long oid) throws Exception {
+        Orders orders = this.ordersDAO.findByIdAndMid(oid, mid); // 查询单个订单信息
+        List<Details> allDetails = this.detailsDAO.findAllByOrders(oid); // 订单详情
+        // key为商品ID、value为商品的数量
+        Map<Long, Integer> detailsMap = new HashMap<>();
+        for (Details details : allDetails) {
+            detailsMap.put(details.getGid(), details.getAmount());
+        }
+        // 随后通过商品的ID集合查询所有的商品数据
+        List<Goods> allGoods = this.goodsDAO.findByIds(detailsMap.keySet());
+        Map<String, Object> map = new HashMap<>();
+        map.put("allGoods", allGoods);
+        map.put("orders", orders);
+        map.put("details", detailsMap);
+        return map;
+    }
 }

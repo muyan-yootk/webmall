@@ -54,8 +54,14 @@ public class OrdersActionFront extends AbstractAction {
 	 * @return 订单详情显示
 	 */
 	@RequestMapping("orders_details_show")
-	public ModelAndView show() {
+	public ModelAndView show(long oid) {
+		Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
 		ModelAndView mav = new ModelAndView(super.getPage("show.page")) ;
+		try {
+			mav.add(this.ordersServiceFront.getDetails(member.getMid(),oid));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav ;
 	}
 	/**

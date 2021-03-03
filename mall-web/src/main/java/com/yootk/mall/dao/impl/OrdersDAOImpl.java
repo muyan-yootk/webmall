@@ -56,6 +56,30 @@ public class OrdersDAOImpl extends AbstractDAO implements IOrdersDAO {
     }
 
     @Override
+    public Orders findByIdAndMid(Long oid, String mid) throws SQLException {
+        String sql = "SELECT oid,mid, pid, cid, subdate, price, note, name, phone, address FROM orders WHERE oid=? AND mid=?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setLong(1, oid);
+        super.pstmt.setString(2, mid);
+        ResultSet rs = super.pstmt.executeQuery();
+        if (rs.next()) {
+            Orders orders = new Orders();
+            orders.setOid(rs.getLong(1));
+            orders.setMid(rs.getString(2));
+            orders.setPid(rs.getLong(3));
+            orders.setCid(rs.getLong(4));
+            orders.setSubdate(rs.getDate(5));
+            orders.setPrice(rs.getDouble(6));
+            orders.setNote(rs.getString(7));
+            orders.setName(rs.getString(8));
+            orders.setPhone(rs.getString(9));
+            orders.setAddress(rs.getString(10));
+            return orders;
+        }
+        return null;
+    }
+
+    @Override
     public boolean doCreate(Orders orders) throws SQLException {
         String sql = "INSERT INTO orders(mid, pid, cid, subdate, price, note, name, phone, address) VALUES (?,?,?,?,?,?,?,?,?)";
         super.pstmt = super.connection.prepareStatement(sql);
