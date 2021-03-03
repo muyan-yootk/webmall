@@ -5,6 +5,7 @@ import com.yootk.common.servlet.MultipartFile;
 import com.yootk.common.servlet.ServletObject;
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.*;
 
 public abstract class AbstractAction { // 所有Action的父类
@@ -30,7 +31,6 @@ public abstract class AbstractAction { // 所有Action的父类
     public String getTempPath() {
         return "/tmp" ;
     }
-
     /**
      * 实现所有上传文件的存储
      * @param files 描述所有的上传文件

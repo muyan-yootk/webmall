@@ -69,7 +69,7 @@
 						<div>
 							<button type="button" class="btn btn-primary" id="editBtn"><span class="glyphicon glyphicon-pencil"></span>&nbsp;修改数量</button>
 							<button type="button" class="btn btn-danger" id="rmBtn"><span class="glyphicon glyphicon-remove"></span>&nbsp;移出购物车</button>
-							<button type="submit" class="btn btn-success" type="submit" id="addBtn"><span class="glyphicon glyphicon-file"></span>&nbsp;下单</button>
+							<button type="button" class="btn btn-success" type="submit" id="addBtn"><span class="glyphicon glyphicon-file"></span>&nbsp;下单</button>
 						</div>
 						</form>
 					</div>

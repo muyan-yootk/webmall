@@ -1,15 +1,26 @@
 package com.yootk.mall.action.front;
 
 import com.yootk.common.action.abs.AbstractAction;
+import com.yootk.common.mvc.annotation.Autowired;
 import com.yootk.common.mvc.annotation.Controller;
 import com.yootk.common.mvc.annotation.RequestMapping;
 import com.yootk.common.mvc.util.ResourceUtil;
 import com.yootk.common.servlet.ModelAndView;
+import com.yootk.common.servlet.ServletObject;
+import com.yootk.mall.service.front.IOrdersServiceFront;
+import com.yootk.mall.util.MallDataUtil;
+import com.yootk.mall.vo.Member;
+
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Controller
 @RequestMapping("/pages/front/center/orders/")
 public class OrdersActionFront extends AbstractAction {
 	public static final String ACTION_TITLE = "订单" ;
+	@Autowired
+	private IOrdersServiceFront ordersServiceFront; // 订单业务对象的注入
 	/**
 	 * 实现订单创建处理
 	 * @return 订单创建页面
@@ -34,9 +45,20 @@ public class OrdersActionFront extends AbstractAction {
 	 * 实现订单创建前的处理
 	 * @return 订单创建页面
 	 */
-	@RequestMapping("orders_add_pre")
-	public ModelAndView addPre() {
+	@RequestMapping("add_pre")
+	public ModelAndView addPre(String ids) { // 增加前的处理操作
+		Set<Long> gids = new HashSet<>();
+		String result[] = ids.split(";");
+		for (String gid : result) {
+			gids.add(Long.parseLong(gid)); // 商品信息的增加
+		}
 		ModelAndView mav = new ModelAndView(super.getPage("add.page")) ;
+		Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
+		try {
+			mav.add(this.ordersServiceFront.preAdd(member.getMid(),gids));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav ;
 	}
 	/**

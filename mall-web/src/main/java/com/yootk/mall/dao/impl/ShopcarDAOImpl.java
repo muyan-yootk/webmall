@@ -73,6 +73,24 @@ public class ShopcarDAOImpl extends AbstractDAO implements IShopcarDAO {
     }
 
     @Override
+    public Map<Long, Integer> findAllByMidAndGids(String mid, Set<Long> gids) throws SQLException {
+        Map<Long, Integer> map = new HashMap<>();
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT gid,amount FROM shopcar WHERE mid=? AND gid IN (");
+        for (Long gid : gids) {
+            sql.append(gid).append(",");
+        }
+        sql.delete(sql.length() - 1, sql.length()).append(")");
+        super.pstmt = super.connection.prepareStatement(sql.toString());
+        super.pstmt.setString(1, mid);
+        ResultSet rs = super.pstmt.executeQuery();
+        while (rs.next()) { // 循环结果集
+            map.put(rs.getLong(1), rs.getInt(2)); // 保存购物车数据
+        }
+        return map;
+    }
+
+    @Override
     public boolean doRemoveByMidAndGid(String mid, Long gid) throws SQLException {
         String sql = "DELETE FROM shopcar WHERE mid=? AND gid=?";
         super.pstmt = super.connection.prepareStatement(sql);

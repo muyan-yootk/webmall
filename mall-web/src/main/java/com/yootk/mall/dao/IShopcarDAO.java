@@ -7,6 +7,7 @@ import com.yootk.mall.vo.Shopcar;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
     /**
@@ -45,6 +46,15 @@ public interface IShopcarDAO extends IBaseDAO<Long, Shopcar> {
      * @throws SQLException
      */
     public Map<Long, Integer> findAllByMid(String mid) throws SQLException;
+
+    /**
+     * 查询指定用户针对于特定的商品编号所定义的商品数量
+     * @param mid 当前的用户id
+     * @param gids 商品编号
+     * @return key为商品编号（gid）、value为商品的购物数量
+     * @throws SQLException
+     */
+    public Map<Long, Integer> findAllByMidAndGids(String mid, Set<Long> gids) throws SQLException;
 
     /**
      * 删除购物车之中的商品信息

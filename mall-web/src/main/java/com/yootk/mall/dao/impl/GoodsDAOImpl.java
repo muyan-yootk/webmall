@@ -57,6 +57,20 @@ public class GoodsDAOImpl extends AbstractDAO implements IGoodsDAO {
         }
         return set;
     }
+
+    @Override
+    public List<Goods> findByIds(Set<Long> ids) throws SQLException {
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT gid,name,price,photo FROM goods WHERE gid IN (");
+        for (Long id : ids) {
+            sql.append(id).append(",");
+        }
+        sql.delete(sql.length() - 1, sql.length()).append(")");
+        super.pstmt = super.connection.prepareStatement(sql.toString());
+        ResultSet rs = super.pstmt.executeQuery(); // 数据查询操作
+        return super.handleResultToList(rs, Goods.class);
+    }
+
     @Override
     public Goods findById(Long id) throws SQLException {
         String sql = "SELECT gid,name,price,photo FROM goods WHERE gid=?";

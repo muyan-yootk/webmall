@@ -8,7 +8,7 @@ $(function() {
         if (ids == "") {	// 没有要移除的商品
             operateAlert(false,"","请先选择要购买的商品！") ;
         } else {
-            // window.location = "pages/front/center/orders/orders_add_pre.action?ids=" + ids ;
+            window.location = "pages/front/center/orders/add_pre.action?ids=" + ids ;
         }
     }) ;
     $("#editBtn").on("click",function(){	// 进行数据的修改操作
