@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter("/*")
-public class CookieLoginFilter extends HttpFilter { // 实现Cookie登录的过滤器
+public class ACookieLoginFilter extends HttpFilter { // 实现Cookie登录的过滤器
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

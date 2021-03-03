@@ -7,15 +7,22 @@ import com.yootk.common.mvc.annotation.RequestMapping;
 import com.yootk.common.servlet.ModelAndView;
 import com.yootk.common.util.PageUtil;
 import com.yootk.mall.service.back.IMemberServiceBack;
+import com.yootk.mall.service.back.IOrdersServiceBack;
 
 @Controller
 @RequestMapping("/pages/back/admin/orders/")
 public class OrdersActionBack extends AbstractAction {
 	@Autowired
-	private IMemberServiceBack memberServiceBack;
+	private IOrdersServiceBack ordersServiceBack;
 	@RequestMapping("list")
 	public ModelAndView list() {
+		PageUtil pageUtil = new PageUtil(super.getPage("list.action"));
 		ModelAndView mav = new ModelAndView(super.getPage("list.page"));
+		try {
+			mav.add(this.ordersServiceBack.list(pageUtil.getColumn(), pageUtil.getKeyword(), pageUtil.getCurrentPage(), pageUtil.getLineSize()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
 	@RequestMapping("details")

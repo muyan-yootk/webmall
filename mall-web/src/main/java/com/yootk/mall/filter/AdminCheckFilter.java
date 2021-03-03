@@ -33,6 +33,5 @@ public class AdminCheckFilter extends HttpFilter { // 过滤器
             req.setAttribute("url", "/member_login_pre.action");
             req.getRequestDispatcher("/pages/plugins/forward.jsp").forward(req, res);
         }
-        chain.doFilter(req, res);
     }
 }
