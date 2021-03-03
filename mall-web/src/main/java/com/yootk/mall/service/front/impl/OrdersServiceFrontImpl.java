@@ -74,4 +74,12 @@ public class OrdersServiceFrontImpl extends AbstractService implements IOrdersSe
         }
         return false;
     }
+
+    @Override
+    public Map<String, Object> list(String mid, int currentPage, int lineSize) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("allOrders", this.ordersDAO.findSplitByMid(mid, currentPage, lineSize));
+        map.put("allRecorders", this.ordersDAO.getAllCountByMid(mid));
+        return map;
+    }
 }

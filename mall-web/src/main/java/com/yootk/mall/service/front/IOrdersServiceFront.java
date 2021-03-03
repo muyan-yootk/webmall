@@ -25,4 +25,16 @@ public interface IOrdersServiceFront { // 订单业务接口
      * @throws Exception
      */
     public boolean add(Orders orders, Set<Long> gids) throws Exception;
+
+    /**
+     * 实现订单数据的分页查询
+     * @param mid 当前的用户ID
+     * @param currentPage 当前页
+     * @param lineSize 每页行数
+     * @return 订单的集合信息，包括有如下的内容：
+     * 1、key = allOrders、value = 订单集合；
+     * 2、key = allRecorders、value = 订单的数量
+     * @throws Exception
+     */
+    public Map<String, Object> list(String mid, int currentPage, int lineSize) throws Exception;
 }

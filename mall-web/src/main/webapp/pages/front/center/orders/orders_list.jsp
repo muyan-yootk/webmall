@@ -43,17 +43,6 @@
 								</tr>
 							</thead>
 							<tbody>
-							<tr>
-								<td class="text-center">1</td>
-								<td class="text-center">719.8</td>
-								<td class="text-center">5</td>
-								<td class="text-center">北京市 朝阳区 奥特莱斯 </td>
-								<td class="text-center">2017-10-10</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=ORDERS_SHOW_URL%>">
-										<span class="glyphicon glyphicon-list-alt"></span>&nbsp;查看详情</a>
-								</td>
-							</tr>
 							<c:forEach items="${allOrders}" var="orders">
 								<tr>
 									<td class="text-center">${orders.oid}</td>

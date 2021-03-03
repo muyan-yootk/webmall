@@ -7,6 +7,7 @@ import com.yootk.common.mvc.annotation.RequestMapping;
 import com.yootk.common.mvc.util.ResourceUtil;
 import com.yootk.common.servlet.ModelAndView;
 import com.yootk.common.servlet.ServletObject;
+import com.yootk.common.util.PageUtil;
 import com.yootk.mall.service.front.IOrdersServiceFront;
 import com.yootk.mall.util.MallDataUtil;
 import com.yootk.mall.vo.Member;
@@ -83,7 +84,14 @@ public class OrdersActionFront extends AbstractAction {
 	 */
 	@RequestMapping("orders_list")
 	public ModelAndView list() {
+		PageUtil pageUtil = new PageUtil(super.getPage("list.action"));
+		Member member = (Member) ServletObject.getSession().getAttribute(MallDataUtil.LOGIN_SESSION_NAME);
 		ModelAndView mav = new ModelAndView(super.getPage("list.page")) ;
+		try {
+			mav.add(this.ordersServiceFront.list(member.getMid(), pageUtil.getCurrentPage(), pageUtil.getLineSize()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav ;
 	}
 

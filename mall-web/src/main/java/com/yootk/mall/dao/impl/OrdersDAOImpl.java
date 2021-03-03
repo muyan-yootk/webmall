@@ -5,7 +5,9 @@ import com.yootk.common.mvc.annotation.Repository;
 import com.yootk.mall.dao.IOrdersDAO;
 import com.yootk.mall.vo.Orders;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 @Repository
@@ -13,6 +15,44 @@ public class OrdersDAOImpl extends AbstractDAO implements IOrdersDAO {
     @Override
     public Long getInsertId() throws SQLException {
         return super.handleAutoIncrementKey();
+    }
+
+    @Override
+    public List<Orders> findSplitByMid(String mid, Integer currentPage, Integer lineSize) throws SQLException {
+        List<Orders> ordersList = new ArrayList<>();
+        String sql = "SELECT oid,mid, pid, cid, subdate, price, note, name, phone, address FROM orders WHERE mid=? LIMIT ?,?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setString(1, mid);
+        super.pstmt.setInt(2, (currentPage - 1) * lineSize);
+        super.pstmt.setInt(3, lineSize);
+        ResultSet rs = super.pstmt.executeQuery();
+        while (rs.next()) {
+            Orders orders = new Orders();
+            orders.setOid(rs.getLong(1));
+            orders.setMid(rs.getString(2));
+            orders.setPid(rs.getLong(3));
+            orders.setCid(rs.getLong(4));
+            orders.setSubdate(rs.getDate(5));
+            orders.setPrice(rs.getDouble(6));
+            orders.setNote(rs.getString(7));
+            orders.setName(rs.getString(8));
+            orders.setPhone(rs.getString(9));
+            orders.setAddress(rs.getString(10));
+            ordersList.add(orders);
+        }
+        return ordersList;
+    }
+
+    @Override
+    public Long getAllCountByMid(String mid) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM orders WHERE mid=?";
+        super.pstmt = super.connection.prepareStatement(sql);
+        super.pstmt.setString(1, mid);
+        ResultSet rs = super.pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getLong(1);
+        }
+        return 0L;
     }
 
     @Override
@@ -53,6 +93,7 @@ public class OrdersDAOImpl extends AbstractDAO implements IOrdersDAO {
 
     @Override
     public List<Orders> findSplit(Integer currentPage, Integer lineSize) throws SQLException {
+        String sql = "SELECT oid,mid, pid, cid, subdate, price, note, name, phone, address FROM orders";
         return null;
     }
 
